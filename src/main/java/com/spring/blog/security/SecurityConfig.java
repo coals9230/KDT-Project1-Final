@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 @Configuration
 public class SecurityConfig {
@@ -13,7 +14,7 @@ public class SecurityConfig {
         // /login, /signup 페이지는 모두 허용, 다른 페이지는 인증된 사용자만 허용
         http
                 .authorizeRequests()
-                .requestMatchers("/login", "/signup","/**").permitAll()
+                .requestMatchers("/login", "/signup","/library/loan" ,"/**").permitAll()
                 .anyRequest().authenticated();
 
         // login 설정
@@ -32,6 +33,11 @@ public class SecurityConfig {
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/"));	// logout에 성공하면 /로 redirect
 
+        http
+                .csrf(csrf ->csrf
+                        .disable());
+
         return http.build();
+
     }
 }

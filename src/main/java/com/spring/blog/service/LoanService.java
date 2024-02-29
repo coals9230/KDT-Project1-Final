@@ -3,10 +3,12 @@ package com.spring.blog.service;
 
 import com.spring.blog.mapper.LoanMapper;
 import com.spring.blog.vo.LoanBook;
+import com.spring.blog.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 
 @Service
 public class LoanService {
@@ -27,4 +29,10 @@ public class LoanService {
     public void saveLoan(String id, int book_num, String book_name, String author) {
         loanMapper.save(id, book_num,book_name,author);
     }
+
+    // 반납
+    public void saveReturn(int book_num) {
+        loanMapper.delete(book_num);
+    }
+
 }
